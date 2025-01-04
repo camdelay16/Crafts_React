@@ -89,7 +89,9 @@ const CraftList = (props) => {
                 </li>
               ))}
             </ul>
-            <button id="close-craft-details">Close</button>
+            <Link to={`/crafts/`}>
+              <button id="close-craft-details">Close</button>
+            </Link>
           </div>
         </div>
       </div>

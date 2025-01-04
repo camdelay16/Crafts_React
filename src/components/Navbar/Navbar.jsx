@@ -5,10 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 import CraftList from "../Craft/CraftList";
 
 const Navbar = (props) => {
-  const { handleViewCraft, craftList } = props;
+  const { handleViewCraft, craftList, searchCraft } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCraftType, setSelectedCraftType] = useState("allcraft");
-  const [crafts, setCrafts] = useState([]);
+
   const sliderRef = useRef(null);
 
   const settings = {
@@ -44,32 +44,32 @@ const Navbar = (props) => {
       text: "All Crafts",
     },
     {
-      id: "paint-draw",
+      id: "67159bf0c5f0b8a90eb3b0fb",
       imgSrc: "https://i.imgur.com/gaZQqSa.png",
       text: "Painting & Drawing",
     },
     {
-      id: "sculpture",
+      id: "67159bf0c5f0b8a90eb3b0fc",
       imgSrc: "https://i.imgur.com/T4051t7.png",
       text: "Sculpture",
     },
     {
-      id: "textiles",
+      id: "67159bf0c5f0b8a90eb3b0fd",
       imgSrc: "https://i.imgur.com/ZY07YCI.png",
       text: "Textiles",
     },
     {
-      id: "paper",
+      id: "67159bf0c5f0b8a90eb3b0fe",
       imgSrc: "https://i.imgur.com/nJL382r.png",
       text: "Paper Crafts",
     },
     {
-      id: "jewelry",
+      id: "67159bf0c5f0b8a90eb3b0ff",
       imgSrc: "https://i.imgur.com/XzLb99V.png",
       text: "Jewelry Making",
     },
     {
-      id: "home-decor",
+      id: "67159bf0c5f0b8a90eb3b100",
       imgSrc: "https://i.imgur.com/Jl3alm4.png",
       text: "Home Decor",
     },
@@ -79,7 +79,7 @@ const Navbar = (props) => {
       text: "Kid's Crafts",
     },
     {
-      id: "witchcraft",
+      id: "67159bf0c5f0b8a90eb3b102",
       imgSrc: "https://i.imgur.com/KA4OO5r.png",
       text: "Witchcraft",
     },
@@ -171,6 +171,7 @@ const Navbar = (props) => {
         filteredCrafts={filteredCrafts}
         handleViewCraft={handleViewCraft}
         craftList={craftList}
+        searchCraft={searchCraft}
       />
     </div>
   );

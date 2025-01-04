@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
-const HeaderSearch = () => {
+const HeaderSearch = (props) => {
+  const { craftList, searchCrafts, searchText, setSearchText, clearSearch } =
+    props;
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearchClick = async () => {
+    await searchCrafts();
+    clearSearch();
+  };
+
+  const handleKeyDown = async (event) => {
+    if (event.key === "Enter") {
+      await searchCrafts();
+      clearSearch();
+    }
+  };
+
   return (
     <header>
       <div id="logo-container">
@@ -20,8 +39,16 @@ const HeaderSearch = () => {
           placeholder="Search Crafts"
           id="search"
           autoComplete="on"
+          value={searchText}
+          onChange={handleSearchChange}
+          onKeyDown={handleKeyDown}
         />
-        <button id="search-btn">Get Craftin'</button>
+        <button
+          id="search-btn"
+          onClick={handleSearchClick}
+        >
+          Get Craftin'
+        </button>
       </div>
     </header>
   );
