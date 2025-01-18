@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 const CraftList = (props) => {
   const { selectedCraft, craftList, handleViewCraft } = props;
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div>
       <div className="craft-details-container">
@@ -90,7 +94,12 @@ const CraftList = (props) => {
               ))}
             </ul>
             <Link to={`/crafts/`}>
-              <button id="close-craft-details">Close</button>
+              <button
+                id="close-craft-details"
+                onClick={scrollToTop}
+              >
+                Close
+              </button>
             </Link>
           </div>
         </div>

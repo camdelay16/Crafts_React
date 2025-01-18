@@ -1,13 +1,14 @@
 import { useState, useEffect, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HeaderSearch from "./components/HeaderSearch/HeaderSearch";
+import Header from "./components/HeaderSearch/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import CraftDetail from "./components/Craft/CraftDetail";
 import Footer from "./components/Footer/Footer";
 import * as craftService from "./services/craftService";
 import * as userService from "./services/userService";
+import Search from "./components/Search/Search";
 
 export const AuthedUserContext = createContext(null);
 
@@ -62,17 +63,26 @@ function App() {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        <HeaderSearch
-          craftList={craftList}
-          searchCrafts={searchCrafts}
-          searchText={searchText}
-          setSearchText={setSearchText}
-          clearSearch={clearSearch}
-        />
+        <Header />
         <Routes>
           <Route
             path="/"
             element={<Home />}
+          />
+          <Route
+            path="/search"
+            element={
+              <Search
+                craftList={craftList}
+                searchCrafts={searchCrafts}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                clearSearch={clearSearch}
+                searchCraft={searchCraft}
+                setSearchCraft={setSearchCraft}
+                handleViewCraft={handleViewCraft}
+              />
+            }
           />
           <Route
             path="/crafts"
@@ -81,10 +91,17 @@ function App() {
                 <Navbar
                   handleViewCraft={handleViewCraft}
                   craftList={craftList}
-                  searchCraft={searchCraft}
-                  setSearchCraft={setSearchCraft}
                 />
               </>
+            }
+          />
+          <Route
+            path="/crafts/craftform"
+            element={
+              <CraftDetail
+                selectedCraft={selectedCraft}
+                setSelectedCraft={setSelectedCraft}
+              />
             }
           />
           <Route

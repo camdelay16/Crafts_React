@@ -3,9 +3,22 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CraftList from "../Craft/CraftList";
+import AllCraft from "../../assets/NavButtons/AllCraft.svg";
+import PaintingDrawing from "../../assets/NavButtons/Drawpaint.svg";
+import Sculpture from "../../assets/NavButtons/Sculpture.svg";
+import Textiles from "../../assets/NavButtons/Textile.svg";
+import PaperCrafts from "../../assets/NavButtons/Paper.svg";
+import JewelryMaking from "../../assets/NavButtons/JewelryMaking.svg";
+import HomeDecor from "../../assets/NavButtons/HomeDecor.svg";
+import KidsCrafts from "../../assets/NavButtons/Kids.svg";
+import Witchcraft from "../../assets/NavButtons/witchcraft.svg";
+import PremiumCrafts from "../../assets/NavButtons/premium.svg";
+import AddCraft from "../../assets/NavButtons/addcraft.svg";
+import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
-  const { handleViewCraft, craftList, searchCraft } = props;
+  const { handleViewCraft, craftList } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCraftType, setSelectedCraftType] = useState("allcraft");
 
@@ -15,7 +28,7 @@ const Navbar = (props) => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -40,57 +53,57 @@ const Navbar = (props) => {
   const craftTypes = [
     {
       id: "allcraft",
-      imgSrc: "https://i.imgur.com/3hUlZDt.png",
+      imgSrc: AllCraft,
       text: "All Crafts",
     },
     {
       id: "67159bf0c5f0b8a90eb3b0fb",
-      imgSrc: "https://i.imgur.com/gaZQqSa.png",
+      imgSrc: PaintingDrawing,
       text: "Painting & Drawing",
     },
     {
       id: "67159bf0c5f0b8a90eb3b0fc",
-      imgSrc: "https://i.imgur.com/T4051t7.png",
+      imgSrc: Sculpture,
       text: "Sculpture",
     },
     {
       id: "67159bf0c5f0b8a90eb3b0fd",
-      imgSrc: "https://i.imgur.com/ZY07YCI.png",
+      imgSrc: Textiles,
       text: "Textiles",
     },
     {
       id: "67159bf0c5f0b8a90eb3b0fe",
-      imgSrc: "https://i.imgur.com/nJL382r.png",
+      imgSrc: PaperCrafts,
       text: "Paper Crafts",
     },
     {
       id: "67159bf0c5f0b8a90eb3b0ff",
-      imgSrc: "https://i.imgur.com/XzLb99V.png",
+      imgSrc: JewelryMaking,
       text: "Jewelry Making",
     },
     {
       id: "67159bf0c5f0b8a90eb3b100",
-      imgSrc: "https://i.imgur.com/Jl3alm4.png",
+      imgSrc: HomeDecor,
       text: "Home Decor",
     },
     {
       id: "kids",
-      imgSrc: "https://i.imgur.com/lhYYJOu.png",
+      imgSrc: KidsCrafts,
       text: "Kid's Crafts",
     },
     {
       id: "67159bf0c5f0b8a90eb3b102",
-      imgSrc: "https://i.imgur.com/KA4OO5r.png",
+      imgSrc: Witchcraft,
       text: "Witchcraft",
     },
     {
       id: "premium",
-      imgSrc: "https://i.imgur.com/kmqHa9h.png",
+      imgSrc: PremiumCrafts,
       text: "Premium Crafts",
     },
     {
       id: "addcraft",
-      imgSrc: "https://i.imgur.com/pCKXE1d.png",
+      imgSrc: AddCraft,
       text: "Add Your Own!",
     },
   ];
@@ -171,7 +184,6 @@ const Navbar = (props) => {
         filteredCrafts={filteredCrafts}
         handleViewCraft={handleViewCraft}
         craftList={craftList}
-        searchCraft={searchCraft}
       />
     </div>
   );
