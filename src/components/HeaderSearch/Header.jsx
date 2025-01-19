@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/Craftopia.svg";
+import { AuthedUserContext } from "../../App";
 
-const Header = () => {
+const Header = (props) => {
+  const { setToggle, handleSignout } = props;
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const user = useContext(AuthedUserContext);
 
   return (
     <header>
@@ -19,13 +22,28 @@ const Header = () => {
         <h4 id="page-byline">Find Your Craft</h4>
       </div>
       <div className="search-container">
-        {currentPath === "/search" ? (
-          <Link to="/crafts">
-            <button id="home-btn">Back to Crafts</button>
-          </Link>
+        {user ? (
+          <>
+            <Link to="/">
+              {" "}
+              <button>Home</button>
+            </Link>{" "}
+            <Link to="/">
+              <button onClick={handleSignout}>Sign out</button>
+            </Link>
+            {currentPath === "/search" ? (
+              <Link to="/crafts">
+                <button id="home-btn">Back to Crafts</button>
+              </Link>
+            ) : (
+              <Link to="/search">
+                <button id="search-btn">Search Crafts</button>
+              </Link>
+            )}
+          </>
         ) : (
-          <Link to="/search">
-            <button id="search-btn">Search Crafts</button>
+          <Link to="/signin">
+            <button>Sign In</button>
           </Link>
         )}
       </div>

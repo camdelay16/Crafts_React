@@ -11,6 +11,8 @@ import * as userService from "./services/userService";
 import Search from "./components/Search/Search";
 import CraftForm from "./components/Craft/CraftForm";
 import SignUp from "./components/User/SignUp";
+import Dashboard from "./components/Dashboard/Dashboard";
+import SignIn from "./components/User/SignIn";
 
 export const AuthedUserContext = createContext(null);
 
@@ -21,6 +23,7 @@ function App() {
   const [selectedCraft, setSelectedCraft] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState(null);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const getCrafts = async () => {
@@ -62,39 +65,70 @@ function App() {
     setSearchText("");
   };
 
+  const handleSignout = () => {
+    userService.signout();
+    setUser(null);
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        <Header />
+        <Header
+          setToggle={setToggle}
+          handleSignout={handleSignout}
+        />
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/signup"
-            element={
-              <SignUp
-                user={user}
-                setUser={setUser}
+          {user ? (
+            <>
+              <Route
+                path="/"
+                element={<Dashboard handleSignout={handleSignout} />}
               />
-            }
-          />
-          <Route
-            path="/search"
-            element={
-              <Search
-                craftList={craftList}
-                searchCrafts={searchCrafts}
-                searchText={searchText}
-                setSearchText={setSearchText}
-                clearSearch={clearSearch}
-                searchCraft={searchCraft}
-                setSearchCraft={setSearchCraft}
-                handleViewCraft={handleViewCraft}
+              <Route
+                path="/search"
+                element={
+                  <Search
+                    craftList={craftList}
+                    searchCrafts={searchCrafts}
+                    searchText={searchText}
+                    setSearchText={setSearchText}
+                    clearSearch={clearSearch}
+                    searchCraft={searchCraft}
+                    setSearchCraft={setSearchCraft}
+                    handleViewCraft={handleViewCraft}
+                    setToggle={setToggle}
+                  />
+                }
               />
-            }
-          />
+
+              <Route
+                path="/crafts/craftform"
+                element={
+                  <CraftForm
+                    selectedCraft={selectedCraft}
+                    setSelectedCraft={setSelectedCraft}
+                    craftList={craftList}
+                    setCraftList={setCraftList}
+                    setToggle={setToggle}
+                  />
+                }
+              />
+              <Route
+                path="/crafts/:craftId"
+                element={
+                  <CraftDetail
+                    selectedCraft={selectedCraft}
+                    setSelectedCraft={setSelectedCraft}
+                  />
+                }
+              />
+            </>
+          ) : (
+            <Route
+              path="/"
+              element={<Home />}
+            />
+          )}
           <Route
             path="/crafts"
             element={
@@ -107,22 +141,20 @@ function App() {
             }
           />
           <Route
-            path="/crafts/craftform"
+            path="/signup"
             element={
-              <CraftForm
-                selectedCraft={selectedCraft}
-                setSelectedCraft={setSelectedCraft}
-                craftList={craftList}
-                setCraftList={setCraftList}
+              <SignUp
+                user={user}
+                setUser={setUser}
               />
             }
           />
           <Route
-            path="/crafts/:craftId"
+            path="/signin"
             element={
-              <CraftDetail
-                selectedCraft={selectedCraft}
-                setSelectedCraft={setSelectedCraft}
+              <SignIn
+                user={user}
+                setUser={setUser}
               />
             }
           />

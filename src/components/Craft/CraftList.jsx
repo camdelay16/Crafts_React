@@ -1,4 +1,6 @@
+import { AuthedUserContext } from "../../App";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 
 const CraftList = (props) => {
   const {
@@ -8,6 +10,7 @@ const CraftList = (props) => {
     selectedCraftType,
     searchCraft,
   } = props;
+  const user = useContext(AuthedUserContext);
 
   const craftsResults = filteredCrafts.map((craftItem) => (
     <div key={craftItem._id}>
@@ -25,9 +28,15 @@ const CraftList = (props) => {
             <p>Difficulty: {craftItem.difficulty}</p>
           </div>
           <p id="tagline">{craftItem.tagline}</p>
-          <Link to={`/crafts/${craftItem._id}`}>
-            <button onClick={() => handleViewCraft(craftItem)}>View</button>
-          </Link>
+          {user ? (
+            <Link to={`/crafts/${craftItem._id}`}>
+              <button onClick={() => handleViewCraft(craftItem)}>View</button>
+            </Link>
+          ) : (
+            <Link to="/signin">
+              <button>Sign In to View</button>{" "}
+            </Link>
+          )}
         </div>
       </div>
     </div>
