@@ -9,6 +9,8 @@ import Footer from "./components/Footer/Footer";
 import * as craftService from "./services/craftService";
 import * as userService from "./services/userService";
 import Search from "./components/Search/Search";
+import CraftForm from "./components/Craft/CraftForm";
+import SignUp from "./components/User/SignUp";
 
 export const AuthedUserContext = createContext(null);
 
@@ -70,6 +72,15 @@ function App() {
             element={<Home />}
           />
           <Route
+            path="/signup"
+            element={
+              <SignUp
+                user={user}
+                setUser={setUser}
+              />
+            }
+          />
+          <Route
             path="/search"
             element={
               <Search
@@ -98,9 +109,11 @@ function App() {
           <Route
             path="/crafts/craftform"
             element={
-              <CraftDetail
+              <CraftForm
                 selectedCraft={selectedCraft}
                 setSelectedCraft={setSelectedCraft}
+                craftList={craftList}
+                setCraftList={setCraftList}
               />
             }
           />

@@ -1,3 +1,4 @@
+import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 const getUser = () => {
@@ -9,19 +10,19 @@ const getUser = () => {
 
 const signup = async (formData) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/users/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
+    const res = await axios.post(`${BACKEND_URL}/signup`, formData);
+    if (res.data.error) {
+      throw new Error(res.data.error);
     }
-    localStorage.setItem("token", json.token);
-    return json;
-  } catch (err) {
-    throw new Error(err);
+
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+      const user = JSON.parse(atob(res.data.token.split(".")[1]));
+      return user;
+    }
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
