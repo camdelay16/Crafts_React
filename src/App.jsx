@@ -38,7 +38,21 @@ function App() {
       }
     };
     getCrafts();
-  }, [selectedCraft]);
+  }, [selectedCraft, toggle]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        setToggle((prevToggle) => !prevToggle);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [toggle]);
 
   const handleViewCraft = (craftItem) => {
     setSelectedCraft(craftItem);
@@ -146,6 +160,7 @@ function App() {
               <SignUp
                 user={user}
                 setUser={setUser}
+                setToggle={setToggle}
               />
             }
           />

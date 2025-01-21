@@ -1,5 +1,6 @@
 import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
+const BASE_URL = `${BACKEND_URL}/users`;
 
 const getUser = () => {
   const token = localStorage.getItem("token");
@@ -10,7 +11,7 @@ const getUser = () => {
 
 const signup = async (formData) => {
   try {
-    const res = await axios.post(`${BACKEND_URL}/signup`, formData);
+    const res = await axios.post(`${BASE_URL}/signup`, formData);
     if (res.data.error) {
       throw new Error(res.data.error);
     }
@@ -28,23 +29,18 @@ const signup = async (formData) => {
 
 const signin = async (user) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/users/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
+    const res = await axios.post(`${BASE_URL}/signin`, user);
+    if (res.data.error) {
+      throw new Error(res.data.error);
     }
-    if (json.token) {
-      localStorage.setItem("token", json.token);
-      const user = JSON.parse(atob(json.token.split(".")[1]));
+
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+      const user = JSON.parse(atob(res.data.token.split(".")[1]));
       return user;
     }
-  } catch (err) {
-    console.log(err);
-    throw err;
+  } catch (error) {
+    console.log(error);
   }
 };
 

@@ -25,26 +25,27 @@ const Header = (props) => {
         {user ? (
           <>
             <Link to="/">
-              {" "}
               <button>Home</button>
-            </Link>{" "}
+            </Link>
+            <Link to="/crafts">
+              <button id="home-btn">Crafts</button>
+            </Link>
+            <Link to="/search">
+              <button id="search-btn">Search Crafts</button>
+            </Link>
             <Link to="/">
               <button onClick={handleSignout}>Sign out</button>
             </Link>
-            {currentPath === "/search" ? (
-              <Link to="/crafts">
-                <button id="home-btn">Back to Crafts</button>
-              </Link>
-            ) : (
-              <Link to="/search">
-                <button id="search-btn">Search Crafts</button>
-              </Link>
-            )}
           </>
         ) : (
-          <Link to="/signin">
-            <button>Sign In</button>
-          </Link>
+          <>
+            <Link to="/signin">
+              <button>Sign In</button>
+            </Link>
+            <Link to="/crafts">
+              <button id="home-btn">Browse Crafts</button>
+            </Link>
+          </>
         )}
       </div>
     </header>

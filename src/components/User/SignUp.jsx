@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as userService from "../../services/userService";
 
 const SignUp = (props) => {
-  const { user, setUser } = props;
+  const { user, setUser, setToggle } = props;
   const navigate = useNavigate();
   const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
@@ -84,7 +84,10 @@ const SignUp = (props) => {
 
       const newUserResponse = await userService.signup(formData);
       setUser(newUserResponse.user);
+
+      setToggle((prevToggle) => !prevToggle);
       navigate("/");
+      navigate(0);
     } catch (err) {
       updateMessage(err.message);
     }

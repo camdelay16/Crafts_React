@@ -18,9 +18,10 @@ const SignIn = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await userService.signIn(formData);
-      setUser(user);
-      if (user) {
+      const userInfo = await userService.signin(formData);
+      setUser(userInfo);
+      console.log(userInfo);
+      if (userInfo) {
         navigate("/");
       }
     } catch (error) {
@@ -31,7 +32,7 @@ const SignIn = (props) => {
   return (
     <div>
       <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
           <label>Username</label>
           <input
@@ -52,7 +53,12 @@ const SignIn = (props) => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Sign In</button>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Sign In
+        </button>
       </form>
       <p>
         If you do not have an account, then please{" "}
