@@ -13,8 +13,6 @@ const Dashboard = (props) => {
         <p>Start Crafting!</p>
 
         <h3>Favorite Crafts</h3>
-
-        <h3>No events at the moment</h3>
       </div>
       <Link to="/">
         <button onClick={handleSignout}>Sign out</button>

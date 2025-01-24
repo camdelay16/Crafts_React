@@ -18,7 +18,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
-  const { handleViewCraft, craftList } = props;
+  const { handleViewCraft, craftList, setCraftList } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCraftType, setSelectedCraftType] = useState("allcraft");
 

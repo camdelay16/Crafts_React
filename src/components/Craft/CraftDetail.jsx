@@ -1,10 +1,25 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import * as craftService from "../../services/craftService";
 
 const CraftList = (props) => {
-  const { selectedCraft, craftList, handleViewCraft } = props;
+  const { selectedCraft, craftList, setCraftList, setSelectedCraft } = props;
+  const navigate = useNavigate();
 
   const scrollToTop = () => {
+    setSelectedCraft(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleRemoveCraft = async (craftId) => {
+    try {
+      await craftService.deleteCraft(craftId);
+      setCraftList(craftList.filter((craft) => craft._id !== craftId));
+      setSelectedCraft(null);
+      navigate("/crafts");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -16,7 +31,7 @@ const CraftList = (props) => {
               <div id="craft-img-boarder">
                 <img
                   id="craftImg"
-                  src={selectedCraft.craftImg}
+                  src={selectedCraft.craftImg || null}
                   alt={selectedCraft.craftName}
                 />
               </div>
@@ -73,9 +88,15 @@ const CraftList = (props) => {
               <div className="details-section-title">
                 <h4 id="reviews">Reviews</h4>
               </div>
+
               <button
                 className="add-review-btn"
                 id="add-review-btn"
+                onClick={() =>
+                  navigate(`/crafts/review`, {
+                    state: { craftData: selectedCraft },
+                  })
+                }
               >
                 Add Review
               </button>
@@ -101,6 +122,20 @@ const CraftList = (props) => {
                 Close
               </button>
             </Link>
+            <div>
+              <button
+                onClick={() =>
+                  navigate(`/crafts/craftform`, {
+                    state: { craftData: selectedCraft },
+                  })
+                }
+              >
+                Edit
+              </button>
+              <button onClick={() => handleRemoveCraft(selectedCraft._id)}>
+                Delete Craft
+              </button>
+            </div>
           </div>
         </div>
       </div>

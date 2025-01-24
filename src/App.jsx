@@ -13,6 +13,7 @@ import CraftForm from "./components/Craft/CraftForm";
 import SignUp from "./components/User/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SignIn from "./components/User/SignIn";
+import CraftReviewForm from "./components/Craft/CraftReviewForm";
 
 export const AuthedUserContext = createContext(null);
 
@@ -133,6 +134,19 @@ function App() {
                   <CraftDetail
                     selectedCraft={selectedCraft}
                     setSelectedCraft={setSelectedCraft}
+                    setCraftList={setCraftList}
+                    craftList={craftList}
+                  />
+                }
+              />
+              <Route
+                path="/crafts/review"
+                element={
+                  <CraftReviewForm
+                    selectedCraft={selectedCraft}
+                    setSelectedCraft={setSelectedCraft}
+                    setCraftList={setCraftList}
+                    craftList={craftList}
                   />
                 }
               />
@@ -150,6 +164,7 @@ function App() {
                 <Navbar
                   handleViewCraft={handleViewCraft}
                   craftList={craftList}
+                  setCraftList={setCraftList}
                 />
               </>
             }
