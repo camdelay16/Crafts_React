@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState, useRef } from "react";
+import { useContext, useState } from "react";
 import { AuthedUserContext } from "../../App";
 import * as craftService from "../../services/craftService";
+import { set, useForm } from "react-hook-form";
 
 const initialState = {
   craftReviews: [],
@@ -9,18 +10,21 @@ const initialState = {
 
 const CraftReviewForm = (props) => {
   const { selectedCraft, setSelectedCraft, setCraftList, craftList } = props;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [formData, setFormData] = useState(initialState);
-  const [reviewList, setReviewList] = useState([]);
   const user = useContext(AuthedUserContext);
   const navigate = useNavigate();
-
-  const reviewerRef = useRef(user.username);
-  const ratingRef = useRef(null);
-  const reviewRef = useRef(null);
 
   const handleUpdateCraft = async (formData, craftId) => {
     try {
       const updatedCraft = await craftService.update(formData, craftId);
+      if (!updatedCraft) {
+        throw new Error("No response from server");
+      }
       if (updatedCraft.error) {
         throw new Error(updatedCraft.error);
       }
@@ -29,67 +33,69 @@ const CraftReviewForm = (props) => {
       );
       setCraftList(updatedCraftList);
       setSelectedCraft(updatedCraft);
+      navigate(`/crafts/${selectedCraft._id}`);
     } catch (error) {
       console.error("Error updating craft:", error);
     }
   };
 
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setFormData({ ...formData, [name]: value });
+  const handleAddReview = async (data) => {
+    const newReview = {
+      reviewer: data.reviewer,
+      rating: data.rating,
+      review: data.review,
+    };
+    const updatedCraft = {
+      ...selectedCraft,
+      craftReviews: [...selectedCraft.craftReviews, newReview],
+    };
+    console.log("updatedCraft:", updatedCraft);
+    try {
+      const updatedCraftResponse = await craftService.update(
+        updatedCraft,
+        selectedCraft._id
+      );
+      setSelectedCraft(updatedCraftResponse);
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleAddReview();
-    handleUpdateCraft(formData, selectedCraft._id);
+  const onSubmit = (data) => {
+    handleAddReview(data);
+    // handleUpdateCraft(formData, selectedCraft._id);
     setFormData(initialState);
     navigate(`/crafts/${selectedCraft._id}`);
   };
-
-  const handleAddReview = () => {
-    const reviewer = reviewerRef.current.value;
-    const rating = ratingRef.current.value;
-    const review = reviewRef.current.value;
-    const newUserReview = [...reviewList, { reviewer, rating, review }];
-    setReviewList(newUserReview);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      craftReviews: newUserReview,
-    }));
-    reviewerRef.current.value = "";
-    ratingRef.current.value = "";
-    reviewRef.current.value = "";
-  };
-
-  // TODO: FIX ALL THIS!
 
   return (
     <>
       <div id="add-review-background">
         <form
           id="add-review-input"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div id="reviewer-name-cont">
             <div className="label-container">
               <label
-                htmlFor="name"
+                htmlFor="reviewer"
                 className="review-label"
               >
                 Name:
               </label>
             </div>
             <input
+              {...register("reviewer", { required: true })}
               name="reviewer"
               id="reviewer-name"
               autoCapitalize="on"
               autoComplete="name"
               defaultValue={user.username}
-              value={user.username}
-              onChange={handleChange}
-              ref={reviewerRef}
+              readOnly
             />
+            {errors.reviewer && (
+              <span className="error">{errors.reviewer.message}</span>
+            )}
           </div>
           <div id="reviewer-rating-cont">
             <div className="label-container">
@@ -101,14 +107,16 @@ const CraftReviewForm = (props) => {
               </label>
             </div>
             <input
+              {...register("rating", { required: true, min: 1, max: 5 })}
               type="number"
               min="1"
               max="5"
               name="rating"
               id="reviewer-rating"
-              onChange={handleChange}
-              ref={ratingRef}
             />
+            {errors.rating && (
+              <span className="error">{errors.rating.message}</span>
+            )}
           </div>
           <div id="reviewer-review-cont">
             <div className="label-container">
@@ -120,11 +128,13 @@ const CraftReviewForm = (props) => {
               </label>
             </div>
             <textarea
+              {...register("review", { required: true })}
               name="review"
               id="reviewer-review"
-              onChange={handleChange}
-              ref={reviewRef}
             ></textarea>
+            {errors.review && (
+              <span className="error">{errors.review.message}</span>
+            )}
           </div>
           <p
             id="craft-id"
@@ -143,6 +153,7 @@ const CraftReviewForm = (props) => {
         <button
           type="button"
           id="cancel-post"
+          onClick={() => navigate(`/crafts/${selectedCraft._id}`)}
         >
           Cancel
         </button>

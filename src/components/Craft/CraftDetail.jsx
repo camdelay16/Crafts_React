@@ -8,7 +8,7 @@ const CraftList = (props) => {
 
   const scrollToTop = () => {
     setSelectedCraft(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   const handleRemoveCraft = async (craftId) => {
