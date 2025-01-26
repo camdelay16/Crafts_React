@@ -19,26 +19,6 @@ const CraftReviewForm = (props) => {
   const user = useContext(AuthedUserContext);
   const navigate = useNavigate();
 
-  const handleUpdateCraft = async (formData, craftId) => {
-    try {
-      const updatedCraft = await craftService.update(formData, craftId);
-      if (!updatedCraft) {
-        throw new Error("No response from server");
-      }
-      if (updatedCraft.error) {
-        throw new Error(updatedCraft.error);
-      }
-      const updatedCraftList = craftList.map((craft) =>
-        craft._id !== updatedCraft._id ? craft : updatedCraft
-      );
-      setCraftList(updatedCraftList);
-      setSelectedCraft(updatedCraft);
-      navigate(`/crafts/${selectedCraft._id}`);
-    } catch (error) {
-      console.error("Error updating craft:", error);
-    }
-  };
-
   const handleAddReview = async (data) => {
     const newReview = {
       reviewer: data.reviewer,
@@ -63,7 +43,6 @@ const CraftReviewForm = (props) => {
 
   const onSubmit = (data) => {
     handleAddReview(data);
-    // handleUpdateCraft(formData, selectedCraft._id);
     setFormData(initialState);
     navigate(`/crafts/${selectedCraft._id}`);
   };

@@ -51,7 +51,7 @@ const CraftList = (props) => {
             <button>Add Craft</button>
           </Link>
         </div>
-        <ul>{craftsResults}</ul>
+        <ul className="craftList">{craftsResults}</ul>
       </div>
     </div>
   );

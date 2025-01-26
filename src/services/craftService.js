@@ -22,7 +22,9 @@ const show = async (craftId) => {
 
 const create = async (formData) => {
   try {
-    const res = await axios.post(BASE_URL, formData);
+    const res = await axios.post(BASE_URL, formData, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -31,7 +33,9 @@ const create = async (formData) => {
 
 const update = async (formData, craftId) => {
   try {
-    const res = await axios.put(`${BASE_URL}/${craftId}`, formData);
+    const res = await axios.put(`${BASE_URL}/${craftId}`, formData, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -40,7 +44,9 @@ const update = async (formData, craftId) => {
 
 const deleteCraft = async (craftId) => {
   try {
-    const res = await axios.delete(`${BASE_URL}/${craftId}`);
+    const res = await axios.delete(`${BASE_URL}/${craftId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
     return res.data;
   } catch (error) {
     console.log(error);

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import * as craftService from "../../services/craftService";
+import { AuthedUserContext } from "../../App";
+import { useContext } from "react";
 
 const CraftList = (props) => {
   const { selectedCraft, craftList, setCraftList, setSelectedCraft } = props;
   const navigate = useNavigate();
+  const user = useContext(AuthedUserContext);
 
   const scrollToTop = () => {
     setSelectedCraft(null);
@@ -123,18 +126,22 @@ const CraftList = (props) => {
               </button>
             </Link>
             <div>
-              <button
-                onClick={() =>
-                  navigate(`/crafts/craftform`, {
-                    state: { craftData: selectedCraft },
-                  })
-                }
-              >
-                Edit
-              </button>
-              <button onClick={() => handleRemoveCraft(selectedCraft._id)}>
-                Delete Craft
-              </button>
+              {selectedCraft.author === user?._id && (
+                <>
+                  <button
+                    onClick={() =>
+                      navigate(`/crafts/craftform`, {
+                        state: { craftData: selectedCraft },
+                      })
+                    }
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => handleRemoveCraft(selectedCraft._id)}>
+                    Delete Craft
+                  </button>{" "}
+                </>
+              )}
             </div>
           </div>
         </div>
