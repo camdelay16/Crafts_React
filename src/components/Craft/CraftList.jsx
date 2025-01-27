@@ -1,6 +1,7 @@
 import { AuthedUserContext } from "../../App";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
+import "./Craft.css";
 
 const CraftList = (props) => {
   const {
@@ -9,6 +10,7 @@ const CraftList = (props) => {
     filteredCrafts,
     selectedCraftType,
     searchCraft,
+    scrollToTop,
   } = props;
   const user = useContext(AuthedUserContext);
 
@@ -30,11 +32,23 @@ const CraftList = (props) => {
           <p id="tagline">{craftItem.tagline}</p>
           {user ? (
             <Link to={`/crafts/${craftItem._id}`}>
-              <button onClick={() => handleViewCraft(craftItem)}>View</button>
+              <button
+                className="navLinkButton"
+                onClick={() => {
+                  handleViewCraft(craftItem);
+                }}
+              >
+                View
+              </button>
             </Link>
           ) : (
             <Link to="/signin">
-              <button>Sign In to View</button>{" "}
+              <button
+                className="navLinkButton"
+                onClick={scrollToTop}
+              >
+                Sign In to View
+              </button>
             </Link>
           )}
         </div>
@@ -48,7 +62,7 @@ const CraftList = (props) => {
         <div>
           <h2 id="craftHeader">Crafts by Category</h2>
           <Link to={`/crafts/craftform`}>
-            <button>Add Craft</button>
+            <button className="navLinkButton">Add Craft</button>
           </Link>
         </div>
         <ul className="craftList">{craftsResults}</ul>

@@ -1,9 +1,11 @@
 import { AuthedUserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./Dashboard.css";
+import * as craftService from "../../services/craftService";
 
 const Dashboard = (props) => {
-  const { handleSignout } = props;
+  const { handleSignout, userData, handleViewCraft } = props;
   const [favoritedCrafts, setFavoritedCrafts] = useState([]);
   const user = useContext(AuthedUserContext);
 
@@ -23,9 +25,9 @@ const Dashboard = (props) => {
   }, []);
 
   const filteredCrafts = favoritedCrafts.filter((craft) => {
-    let userFavoriteCrafts = { ...user };
-    const favoritedCrafts = userFavoriteCrafts.userCrafts;
-    return favoritedCrafts.includes(craft._id);
+    let userFavCrafts = { ...userData };
+    const userFavoritedCrafts = userFavCrafts.userCrafts;
+    return userFavoritedCrafts?.includes(craft._id);
   });
 
   const crafts = filteredCrafts.map((craftItem) => (
@@ -45,7 +47,12 @@ const Dashboard = (props) => {
           </div>
           <p id="tagline">{craftItem.tagline}</p>
           <Link to={`/crafts/${craftItem._id}`}>
-            <button onClick={() => handleViewCraft(craftItem)}>View</button>
+            <button
+              className="navLinkButton"
+              onClick={() => handleViewCraft(craftItem)}
+            >
+              View
+            </button>
           </Link>
         </div>
       </div>
@@ -55,20 +62,16 @@ const Dashboard = (props) => {
   return (
     <main>
       <div className="dashboardCard">
-        <h1>Welcome, {user.username}</h1>
-        <p>Start Crafting!</p>
+        <h1>Welcome, {user.username}!</h1>
 
-        <h3>Favorite Crafts</h3>
+        <h3 className="subtitle">Favorite Crafts</h3>
         <div className="craftContainer">
-          {!favoritedCrafts.length ? (
-            <h3>Add some crafts to your favorites!</h3>
+          {!userData.userCrafts.length ? (
+            <h5>Add some crafts to your favorites!</h5>
           ) : (
             <ul className="craftList">{crafts}</ul>
           )}
         </div>
-        <Link to="/">
-          <button onClick={handleSignout}>Sign out</button>
-        </Link>
       </div>
     </main>
   );

@@ -1,18 +1,23 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import * as craftService from "../../services/craftService";
+import * as userService from "../../services/userService";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
+import "./CraftDetail.css";
 
 const CraftList = (props) => {
-  const { selectedCraft, craftList, setCraftList, setSelectedCraft } = props;
+  const {
+    selectedCraft,
+    craftList,
+    setCraftList,
+    setSelectedCraft,
+    userData,
+    setUserData,
+    scrollToTopBack,
+  } = props;
   const navigate = useNavigate();
   const user = useContext(AuthedUserContext);
-
-  const scrollToTop = () => {
-    setSelectedCraft(null);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  };
 
   const handleRemoveCraft = async (craftId) => {
     try {
@@ -22,6 +27,41 @@ const CraftList = (props) => {
       navigate("/crafts");
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleFavoriteCraft = async () => {
+    try {
+      const newUserData = { ...userData };
+      if (!newUserData.userCrafts) {
+        newUserData.userCrafts = [];
+      }
+      newUserData.userCrafts.push(selectedCraft._id);
+      const updatedUser = await userService.update(user._id, newUserData);
+      setUserData(updatedUser);
+      navigate(`/crafts/${selectedCraft._id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUnfavoriteCraft = async () => {
+    const alreadyFavorited = userData.userCrafts?.includes(selectedCraft._id);
+    if (alreadyFavorited) {
+      try {
+        let newUserData = { ...userData };
+        const indexToRemove = newUserData.userCrafts.lastIndexOf(
+          selectedCraft._id
+        );
+        if (indexToRemove !== -1) {
+          newUserData.userCrafts.splice(indexToRemove, 1);
+        }
+        const updatedUser = await userService.update(user._id, newUserData);
+        setUserData(updatedUser);
+        navigate(`/crafts/${selectedCraft._id}`);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -41,6 +81,21 @@ const CraftList = (props) => {
             </div>
             <div className="craft-header-details">
               <h3 id="craftName">{selectedCraft.craftName}</h3>
+              {userData.userCrafts?.includes(selectedCraft._id) ? (
+                <button
+                  className="fav-btn"
+                  onClick={handleUnfavoriteCraft}
+                >
+                  <i class="fa-solid fa-heart"></i> Remove from Favorites
+                </button>
+              ) : (
+                <button
+                  className="fav-btn"
+                  onClick={handleFavoriteCraft}
+                >
+                  <i class="fa-regular fa-heart"></i> Add to Favorites
+                </button>
+              )}
               <h6 id="difficulty">Difficulty: {selectedCraft.difficulty}</h6>
               <p id="description">{selectedCraft.description}</p>
             </div>
@@ -120,7 +175,7 @@ const CraftList = (props) => {
             <Link to={`/crafts/`}>
               <button
                 id="close-craft-details"
-                onClick={scrollToTop}
+                onClick={scrollToTopBack}
               >
                 Close
               </button>

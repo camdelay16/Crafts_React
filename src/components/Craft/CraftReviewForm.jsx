@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { AuthedUserContext } from "../../App";
 import * as craftService from "../../services/craftService";
 import { set, useForm } from "react-hook-form";
+import "./CraftReviewForm.css";
 
 const initialState = {
   craftReviews: [],

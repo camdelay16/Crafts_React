@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import * as craftService from "../../services/craftService";
-
+import "./CraftForm.css";
 const initialState = {
   craftName: "",
   description: "",
@@ -150,7 +150,7 @@ const CraftForm = (props) => {
   };
 
   return (
-    <>
+    <div className="form">
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="craftName">Craft Name:</label>
@@ -405,7 +405,7 @@ const CraftForm = (props) => {
           <button>Cancel</button>
         </Link>
       )}
-    </>
+    </div>
   );
 };
 

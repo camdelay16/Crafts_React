@@ -1,0 +1,216 @@
+header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+  background-color: #1995ad;
+  padding: 10px 20px;
+  gap: 10px;
+}
+
+#logo-container {
+  width: 100%;
+  max-width: 200px;
+  grid-column: 1/2;
+}
+
+.logo {
+  max-width: 175px;
+  max-height: 155px;
+  margin: 10px;
+}
+
+#title-byline {
+  grid-column: 2/4;
+  justify-self: center;
+  align-self: center;
+  display: grid;
+  grid-template-rows: repeat(2, 75px);
+  margin-top: 20px;
+}
+
+#search {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.navLinks {
+  grid-column: 4/5;
+  justify-self: center;
+  align-self: center;
+}
+
+#page-title {
+  font-family: "Rubik Gemstones", serif;
+  font-weight: 400;
+  font-size: 60px;
+  justify-self: center;
+  align-self: center;
+  letter-spacing: 0.5rem;
+  color: #5e2880;
+}
+
+#page-byline {
+  font-family: "Wellfleet", serif;
+  font-weight: 400;
+  justify-self: center;
+  align-self: center;
+  font-size: 25px;
+  margin-top: 10px;
+  color: #f1f1f2;
+}
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hamburger-menu.open {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hamburger-menu.open {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 2000;
+}
+
+.hamburger-menu .bar {
+  width: 100%;
+  height: 4px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-menu.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.hamburger-menu {
+  display: flex;
+}
+
+.navLinks {
+  display: none;
+  flex-direction: column;
+  width: 250px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 10px 0;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+  transform: translateX(100%);
+  z-index: 1000;
+}
+
+.close-btn {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.navLinks.open .close-btn {
+  display: block;
+}
+
+.navLinks.open {
+  transform: translateX(0);
+}
+
+.navLinks.open {
+  display: flex;
+}
+
+.navLinks a {
+  padding: 10px 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+@media (max-width: 768px) {
+  header {
+    grid-template-columns: repeat(3, 1fr);
+    height: auto;
+    padding-left: 0;
+  }
+
+  #logo-container {
+    grid-column: 1 /2;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+  .logo {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 0;
+    border: none;
+  }
+
+  #title-byline {
+    grid-column: 2 / 3;
+    grid-template-rows: auto;
+    margin-top: 10px;
+  }
+
+  .navLinks {
+    width: 100%;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  #page-title {
+    font-family: "Rubik Gemstones", serif;
+    font-weight: 400;
+    font-size: 35px;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: 0.2rem;
+    color: #5e2880;
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+
+  #page-byline {
+    font-family: "Wellfleet", serif;
+    font-weight: 400;
+    justify-self: center;
+    align-self: center;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #f1f1f2;
+  }
+}

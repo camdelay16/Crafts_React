@@ -70,4 +70,18 @@ const deleteUser = async (userId) => {
   }
 };
 
-export { signup, signin, getUser, signout, update, deleteUser };
+const getUserData = async (userId) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    if (!res) {
+      throw new Error(res.data.error);
+    }
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { signup, signin, getUser, getUserData, signout, update, deleteUser };

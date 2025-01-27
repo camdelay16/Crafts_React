@@ -1,0 +1,31 @@
+footer {
+  background-color: #33333355;
+  margin-top: 30px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 30px;
+}
+
+.footer-info {
+  margin: 10px;
+  gap: 5px;
+  justify-self: center;
+  align-self: center;
+}
+
+.footer-text {
+  font-size: 16px;
+  padding: 10px;
+}
+
+.footer-text:hover {
+  text-shadow: rgb(236, 231, 212) 1px 0 10px;
+  cursor: pointer;
+}
+
+#app-text {
+  grid-column: 4/6;
+}

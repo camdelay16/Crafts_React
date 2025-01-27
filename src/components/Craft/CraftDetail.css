@@ -1,0 +1,188 @@
+.details-section-background {
+  border: 10px solid #a1d6e2;
+  background-color: #f1f1f2;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px;
+  color: #373636;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.directions,
+.materials {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.details-section-title {
+  margin: 10px;
+  font-size: 25px;
+  margin-bottom: 0;
+}
+
+#materials-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-right: 30px;
+  margin-top: 5px;
+}
+
+.material-text,
+.direction-text {
+  padding: 5px;
+}
+
+.direction-text {
+  margin: 10px;
+  display: flex;
+}
+
+.step-img {
+  border-radius: 10px;
+}
+
+#directions-list {
+  margin-top: 5px;
+  margin-right: 30px;
+}
+
+#craftImg {
+  width: 100%;
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0;
+  border-radius: 10px;
+  justify-self: center;
+  align-self: center;
+}
+
+#craft-img-boarder {
+  border-radius: 22px;
+  border: 12px solid #1995ad;
+  background-color: #1995ad;
+  width: 100%;
+  max-width: 425px;
+  max-height: 425px;
+  margin: 20px;
+  gap: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.craft-header-details {
+  margin: 20px;
+  padding: 15px;
+  gap: 20px;
+}
+
+.craft-details-container {
+  background-color: #f1f1f2;
+  border-radius: 25px;
+  margin: 40px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#craftName {
+  font-size: 40px;
+  justify-self: center;
+  align-self: center;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+#difficulty,
+#description {
+  text-align: left;
+  font-size: 12px;
+  margin: 7px;
+  padding: 7px;
+}
+
+li img {
+  max-width: 300px;
+  margin: 20px;
+}
+
+li {
+  list-style-type: none;
+  margin: 5px;
+}
+
+.craft-header,
+.review-header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+#reviews-list {
+  list-style-type: none;
+  margin-right: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.review-text {
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .details-section-background,
+  .craft-details-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .details-section-title {
+    font-size: 20px;
+  }
+
+  #materials-list,
+  #directions-list,
+  #reviews-list {
+    grid-template-columns: 1fr;
+    margin-right: 0;
+  }
+
+  #craftImg {
+    max-width: 50%;
+    max-height: 50%;
+    margin: 0;
+  }
+
+  #craft-img-boarder {
+    margin: 10px auto;
+  }
+
+  #craftImg {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .craft-header,
+  .review-header {
+    grid-template-columns: 1fr;
+  }
+
+  #craftName {
+    font-size: 30px;
+  }
+
+  #difficulty,
+  #description {
+    font-size: 10px;
+  }
+
+  li img {
+    max-width: 100%;
+    margin: 10px;
+  }
+
+  #craft-img-container {
+    width: 100%;
+  }
+}

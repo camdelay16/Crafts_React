@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../../assets/Logo/Craftopia.svg";
 import { Link } from "react-router-dom";
+import "./Search.css";
 
 const Search = (props) => {
   const {
@@ -47,7 +48,12 @@ const Search = (props) => {
           </div>
           <p id="tagline">{craftItem.tagline}</p>
           <Link to={`/crafts/${craftItem._id}`}>
-            <button onClick={() => handleViewCraft(craftItem)}>View</button>
+            <button
+              className="navLinkButton"
+              onClick={() => handleViewCraft(craftItem)}
+            >
+              View
+            </button>
           </Link>
         </div>
       </div>
@@ -55,7 +61,7 @@ const Search = (props) => {
   ));
 
   return (
-    <>
+    <div className="searchContainer">
       <br />
       <br />
       <br />
@@ -78,17 +84,15 @@ const Search = (props) => {
       </div>
       <br />
       <br />
-      <br />
-      <br />
       {searchCraft.length > 0 && (
         <div className="searchContainer">
           <div>
             <h2 id="craftHeader">Search Results</h2>
           </div>
-          <ul>{searchResults}</ul>
+          <ul className="craftList">{searchResults}</ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,57 @@
+#search-btn,
+.navLinkButton,
+.view-craft-btn,
+#close-craft-details,
+#add-review-btn,
+#post-review,
+#cancel-post {
+  border-radius: 10px;
+  border: none;
+  background-color: aquamarine;
+  color: #333;
+  padding: 8px;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  width: 90px;
+  cursor: pointer;
+}
+
+.fav-btn {
+  border-radius: 10px;
+  border: none;
+  background-color: aquamarine;
+  color: #333;
+  padding: 8px;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  cursor: pointer;
+}
+
+#add-review-btn {
+  justify-self: end;
+  align-self: center;
+}
+
+.navLinkButton:hover,
+#search-btn:hover,
+.view-craft-btn:hover,
+#close-craft-details:hover,
+#add-review-btn:hover,
+#post-review:hover,
+#cancel-post:hover,
+.fav-btn:hover {
+  background-color: #333;
+  color: aquamarine;
+}
+
+.navLinkButton:active,
+#search-btn:active,
+.view-craft-btn:active,
+#close-craft-details:active,
+#add-review-btn:active,
+#post-review:active,
+#cancel-post:active,
+.fav-btn:active {
+  background-color: aquamarine;
+  color: #333;
+}

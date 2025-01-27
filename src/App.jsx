@@ -14,6 +14,7 @@ import SignUp from "./components/User/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SignIn from "./components/User/SignIn";
 import CraftReviewForm from "./components/Craft/CraftReviewForm";
+import "./Buttons.css";
 
 export const AuthedUserContext = createContext(null);
 
@@ -25,6 +26,7 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState(null);
   const [toggle, setToggle] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const getCrafts = async () => {
@@ -40,6 +42,22 @@ function App() {
     };
     getCrafts();
   }, [selectedCraft, toggle]);
+
+  useEffect(() => {
+    const getUserData = async (id) => {
+      try {
+        const userInfo = await userService.getUserData(id);
+        if (userInfo.error) {
+          throw new Error(userInfo.error);
+        }
+
+        setUserData(userInfo);
+      } catch (error) {
+        console.log("Error fetching user:", error);
+      }
+    };
+    user ? getUserData(user._id) : setUserData(null);
+  }, [toggle]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -85,6 +103,16 @@ function App() {
     setUser(null);
   };
 
+  const scrollToTop = () => {
+    setSelectedCraft(null);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
+  const scrollToTopBack = () => {
+    setSelectedCraft(null);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -97,7 +125,13 @@ function App() {
             <>
               <Route
                 path="/"
-                element={<Dashboard handleSignout={handleSignout} />}
+                element={
+                  <Dashboard
+                    handleSignout={handleSignout}
+                    userData={userData}
+                    handleViewCraft={handleViewCraft}
+                  />
+                }
               />
               <Route
                 path="/search"
@@ -136,6 +170,9 @@ function App() {
                     setSelectedCraft={setSelectedCraft}
                     setCraftList={setCraftList}
                     craftList={craftList}
+                    userData={userData}
+                    setUserData={setUserData}
+                    scrollToTopBack={scrollToTopBack}
                   />
                 }
               />
@@ -165,6 +202,7 @@ function App() {
                   handleViewCraft={handleViewCraft}
                   craftList={craftList}
                   setCraftList={setCraftList}
+                  scrollToTop={scrollToTop}
                 />
               </>
             }
@@ -190,7 +228,7 @@ function App() {
           />
         </Routes>
 
-        <Footer />
+        {/* <Footer /> */}
       </AuthedUserContext.Provider>
     </>
   );

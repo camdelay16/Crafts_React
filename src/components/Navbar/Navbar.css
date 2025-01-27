@@ -68,3 +68,20 @@
   transform: scale(1.1);
   text-shadow: rgb(236, 231, 212) 1px 0 10px;
 }
+@media (max-width: 600px) {
+  .type-btn {
+    max-width: 175px;
+    max-height: 175px;
+    padding: 5px;
+    margin: 10px;
+  }
+
+  .type-btn-img {
+    max-width: 100px;
+  }
+
+  #left-btn,
+  #right-btn {
+    padding: 5px;
+  }
+}

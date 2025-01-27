@@ -1,0 +1,40 @@
+#add-review-background {
+  background-color: #78babccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
+  padding: 20px 30px 20px 30px;
+  border-radius: 25px;
+}
+
+.label-container {
+  text-align: left;
+  max-width: 150px;
+  flex: 0 0 150px;
+}
+
+#reviewer-name-cont,
+#reviewer-rating-cont,
+#reviewer-review-cont {
+  display: flex;
+  align-items: center;
+}
+
+#reviewer-name,
+#reviewer-rating {
+  flex: 1;
+  margin: 10px 0;
+  max-width: 120px;
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+#reviewer-review {
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 10px;
+}
