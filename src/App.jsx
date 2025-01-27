@@ -104,7 +104,6 @@ function App() {
   };
 
   const scrollToTop = () => {
-    setSelectedCraft(null);
     window.scrollTo({ top: 0, behavior: "instant" });
   };
 

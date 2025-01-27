@@ -23,6 +23,7 @@ const SignIn = (props) => {
       console.log(userInfo);
       if (userInfo) {
         navigate("/");
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

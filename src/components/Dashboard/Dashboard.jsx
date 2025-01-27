@@ -66,7 +66,7 @@ const Dashboard = (props) => {
 
         <h3 className="subtitle">Favorite Crafts</h3>
         <div className="craftContainer">
-          {!userData.userCrafts.length ? (
+          {!userData?.userCrafts.length ? (
             <h5>Add some crafts to your favorites!</h5>
           ) : (
             <ul className="craftList">{crafts}</ul>
