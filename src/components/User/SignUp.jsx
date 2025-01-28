@@ -133,6 +133,25 @@ const SignUp = (props) => {
           />
         </div>
         <div className="form-group">
+          <label htmlFor="password">Password Criteria</label>
+          <ul>
+            <li>
+              <small>Needs 8 or more characters.</small>
+            </li>
+
+            <li>
+              <small>Must contain uppercase letter.</small>
+            </li>
+            <li>
+              <small>Must contain lowercase letter.</small>
+            </li>
+            <li>
+              <small>Must contain number.</small>
+            </li>
+            <li>
+              <small>Must contain special character.</small>
+            </li>
+          </ul>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -155,24 +174,6 @@ const SignUp = (props) => {
           />
         </div>
         {validatePassword(password)}
-        <ul>
-          <li>
-            <small>Needs 8 or more characters.</small>
-          </li>
-
-          <li>
-            <small>Must contain uppercase letter.</small>
-          </li>
-          <li>
-            <small>Must contain lowercase letter.</small>
-          </li>
-          <li>
-            <small>Must contain number.</small>
-          </li>
-          <li>
-            <small>Must contain special character.</small>
-          </li>
-        </ul>
 
         {!formData.valid && (
           <p
