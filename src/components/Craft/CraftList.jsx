@@ -2,6 +2,7 @@ import { AuthedUserContext } from "../../App";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import "./Craft.css";
+import { useLocation } from "react-router-dom";
 
 const CraftList = (props) => {
   const {
@@ -13,6 +14,7 @@ const CraftList = (props) => {
     scrollToTop,
   } = props;
   const user = useContext(AuthedUserContext);
+  const location = useLocation();
 
   const craftsResults = filteredCrafts.map((craftItem) => (
     <div key={craftItem._id}>
@@ -31,7 +33,10 @@ const CraftList = (props) => {
           </div>
           <p id="tagline">{craftItem.tagline}</p>
           {user ? (
-            <Link to={`/crafts/${craftItem._id}`}>
+            <Link
+              to={`/crafts/${craftItem._id}`}
+              state={{ from: location }}
+            >
               <button
                 className="navLinkButton"
                 onClick={() => {

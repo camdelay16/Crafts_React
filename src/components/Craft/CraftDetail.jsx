@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as craftService from "../../services/craftService";
 import * as userService from "../../services/userService";
 import { AuthedUserContext } from "../../App";
@@ -18,6 +18,7 @@ const CraftList = (props) => {
   } = props;
   const navigate = useNavigate();
   const user = useContext(AuthedUserContext);
+  const location = useLocation();
 
   const handleRemoveCraft = async (craftId) => {
     try {
@@ -62,6 +63,14 @@ const CraftList = (props) => {
       } catch (error) {
         console.error(error);
       }
+    }
+  };
+
+  const handleBack = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate(`/crafts/`);
     }
   };
 
@@ -172,14 +181,14 @@ const CraftList = (props) => {
                 </li>
               ))}
             </ul>
-            <Link to={`/crafts/`}>
-              <button
-                id="close-craft-details"
-                onClick={scrollToTopBack}
-              >
-                Close
-              </button>
-            </Link>
+
+            <button
+              id="close-craft-details"
+              onClick={handleBack}
+            >
+              Close
+            </button>
+
             <div>
               {selectedCraft.author === user?._id && (
                 <>

@@ -3,11 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
 import * as craftService from "../../services/craftService";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = (props) => {
   const { handleSignout, userData, handleViewCraft } = props;
   const [favoritedCrafts, setFavoritedCrafts] = useState([]);
   const user = useContext(AuthedUserContext);
+  const location = useLocation();
 
   useEffect(() => {
     const getCrafts = async () => {
@@ -46,7 +48,10 @@ const Dashboard = (props) => {
             <p>Difficulty: {craftItem.difficulty}</p>
           </div>
           <p id="tagline">{craftItem.tagline}</p>
-          <Link to={`/crafts/${craftItem._id}`}>
+          <Link
+            to={`/crafts/${craftItem._id}`}
+            state={{ from: location }}
+          >
             <button
               className="navLinkButton"
               onClick={() => handleViewCraft(craftItem)}
@@ -63,13 +68,13 @@ const Dashboard = (props) => {
     <main>
       <div className="dashboardCard">
         <h1>Welcome, {user.username}!</h1>
-
+        <br />
         <h3 className="subtitle">Favorite Crafts</h3>
         <div className="craftContainer">
           {!userData?.userCrafts.length ? (
             <h5>Add some crafts to your favorites!</h5>
           ) : (
-            <ul className="craftList">{crafts}</ul>
+            <ul className="craftList dashboardList">{crafts}</ul>
           )}
         </div>
       </div>

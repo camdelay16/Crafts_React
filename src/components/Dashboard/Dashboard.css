@@ -6,3 +6,11 @@
 .subtitle {
   text-decoration: underline;
 }
+
+.craftList.dashboardList {
+  display: grid;
+  gap: 20px;
+  margin: 20px;
+  padding-left: 0;
+  justify-content: center;
+}
