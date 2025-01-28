@@ -66,9 +66,15 @@ const CraftList = (props) => {
       <div className="craftContainer">
         <div>
           <h2 id="craftHeader">Crafts by Category</h2>
-          <Link to={`/crafts/craftform`}>
-            <button className="navLinkButton">Add Craft</button>
-          </Link>
+          {user ? (
+            <Link to={`/crafts/craftform`}>
+              <button className="navLinkButton">Add Craft</button>
+            </Link>
+          ) : (
+            <Link to={`/signin`}>
+              <button className="navLinkButton">Sign In</button>
+            </Link>
+          )}
         </div>
         <ul className="craftList">{craftsResults}</ul>
       </div>

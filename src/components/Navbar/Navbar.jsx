@@ -108,11 +108,6 @@ const Navbar = (props) => {
       imgSrc: PremiumCrafts,
       text: "Premium Crafts",
     },
-    {
-      id: "addcraft",
-      imgSrc: AddCraft,
-      text: "Add Your Own!",
-    },
   ];
 
   const handlePrevClick = () => {
