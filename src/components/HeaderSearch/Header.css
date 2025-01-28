@@ -29,6 +29,7 @@ header {
   display: grid;
   grid-template-rows: repeat(2, 75px);
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #search {
@@ -161,6 +162,7 @@ header {
     grid-template-columns: repeat(3, 1fr);
     height: auto;
     padding-left: 0;
+    gap: 0;
   }
 
   #logo-container {
@@ -182,6 +184,7 @@ header {
     grid-column: 2 / 3;
     grid-template-rows: auto;
     margin-top: 10px;
+    margin-bottom: 5px;
   }
 
   .navLinks {

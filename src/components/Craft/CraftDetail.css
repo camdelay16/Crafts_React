@@ -163,9 +163,12 @@ li {
     display: block;
   }
 
-  .craft-header,
-  .review-header {
+  .craft-header {
     grid-template-columns: 1fr;
+  }
+
+  .review-header {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   #craftName {

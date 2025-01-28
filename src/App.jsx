@@ -202,6 +202,8 @@ function App() {
                   craftList={craftList}
                   setCraftList={setCraftList}
                   scrollToTop={scrollToTop}
+                  selectedCraft={selectedCraft}
+                  setSelectedCraft={setSelectedCraft}
                 />
               </>
             }

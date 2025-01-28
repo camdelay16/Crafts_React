@@ -12,12 +12,21 @@ const CraftList = (props) => {
     selectedCraftType,
     searchCraft,
     scrollToTop,
+    selectedCraft,
+    setSelectedCraft,
   } = props;
   const user = useContext(AuthedUserContext);
   const location = useLocation();
 
+  const clearSelectedCraft = () => {
+    setSelectedCraft(null);
+  };
+
   const craftsResults = filteredCrafts.map((craftItem) => (
-    <div key={craftItem._id}>
+    <div
+      key={craftItem._id}
+      className="resultCraft"
+    >
       <div className="resultBackground">
         <div className="resultImgContainer">
           <img
@@ -33,28 +42,32 @@ const CraftList = (props) => {
           </div>
           <p id="tagline">{craftItem.tagline}</p>
           {user ? (
-            <Link
-              to={`/crafts/${craftItem._id}`}
-              state={{ from: location }}
-            >
-              <button
-                className="navLinkButton"
-                onClick={() => {
-                  handleViewCraft(craftItem);
-                }}
+            <div className="cardBtn">
+              <Link
+                to={`/crafts/${craftItem._id}`}
+                state={{ from: location }}
               >
-                View
-              </button>
-            </Link>
+                <button
+                  className="navLinkButton view"
+                  onClick={() => {
+                    handleViewCraft(craftItem);
+                  }}
+                >
+                  View
+                </button>
+              </Link>{" "}
+            </div>
           ) : (
-            <Link to="/signin">
-              <button
-                className="navLinkButton"
-                onClick={scrollToTop}
-              >
-                Sign In to View
-              </button>
-            </Link>
+            <div className="cardBtn">
+              <Link to="/signin">
+                <button
+                  className="navLinkButton"
+                  onClick={scrollToTop}
+                >
+                  Sign In to View
+                </button>
+              </Link>
+            </div>
           )}
         </div>
       </div>
@@ -68,7 +81,12 @@ const CraftList = (props) => {
           <h2 id="craftHeader">Crafts by Category</h2>
           {user ? (
             <Link to={`/crafts/craftform`}>
-              <button className="navLinkButton">Add Craft</button>
+              <button
+                className="navLinkButton"
+                onClick={clearSelectedCraft}
+              >
+                Add Craft
+              </button>
             </Link>
           ) : (
             <Link to={`/signin`}>

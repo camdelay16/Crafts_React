@@ -45,6 +45,7 @@ const CraftForm = (props) => {
       handleAddCraft(formData);
       setFormData(initialState);
       navigate("/crafts");
+      window.location.reload();
     }
   };
 
@@ -156,7 +157,7 @@ const CraftForm = (props) => {
           <label htmlFor="craftName">Craft Name:</label>
           <input
             type="text"
-            id="craftName"
+            id="craftNameForm"
             name="craftName"
             value={formData.craftName}
             onChange={handleChange}
@@ -167,7 +168,7 @@ const CraftForm = (props) => {
           <label htmlFor="tagline">Tagline:</label>
           <input
             type="text"
-            id="tagline"
+            id="taglineForm"
             name="tagline"
             value={formData.tagline}
             onChange={handleChange}
@@ -177,7 +178,7 @@ const CraftForm = (props) => {
         <div>
           <label htmlFor="description">Description:</label>
           <textarea
-            id="description"
+            id="descriptionForm"
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -188,7 +189,7 @@ const CraftForm = (props) => {
         <div>
           <label htmlFor="type">Craft Type:</label>
           <select
-            id="type"
+            id="typeForm"
             name="craftType_id"
             value={formData.craftType_id}
             onChange={handleChange}
@@ -208,7 +209,7 @@ const CraftForm = (props) => {
         <div>
           <label htmlFor="difficulty">Craft Difficulty:</label>
           <select
-            id="difficulty"
+            id="difficultyForm"
             name="difficulty"
             value={formData.difficulty}
             onChange={handleChange}
@@ -220,12 +221,12 @@ const CraftForm = (props) => {
             <option value="Expert">Expert</option>
           </select>
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="premium-membership">
             Require Premium Membership:
           </label>
           <select
-            id="premium-membership"
+            id="premium-membershipForm"
             name="premium"
             value={formData.premium}
             onChange={handleChange}
@@ -233,19 +234,19 @@ const CraftForm = (props) => {
             <option value="false">No</option>
             <option value="true">Yes</option>
           </select>
-        </div>
-        <div id="add-craft-img-container">
-          <div className="label-container">
+        </div> */}
+        <div id="add-craft-img-container-form">
+          <div className="label-container-form">
             <label
               htmlFor="craft-img"
-              className="review-label"
+              className="review-label-form"
             >
               Craft Image URL:
             </label>
           </div>
           <input
             type="text"
-            id="craftImg"
+            id="craftImgForm"
             name="craftImg"
             value={formData.craftImg}
             onChange={handleChange}
@@ -264,6 +265,7 @@ const CraftForm = (props) => {
             <option value="true">Yes</option>
           </select>
         </div>
+        <br />
         <div>
           <label htmlFor="material-amount">Material Amount:</label>
           <input
@@ -295,25 +297,33 @@ const CraftForm = (props) => {
         <button
           type="button"
           onClick={handleAddMaterial}
+          className="craftFormBtn"
         >
           Add Material
         </button>
         <ul>
           {materialList.map((material, index) => (
-            <li key={index}>
+            <li
+              key={index}
+              className="formList"
+            >
               {material.amount} {material.unit} of {material.item}
-              <button
-                type="button"
-                onClick={() => handleEditMaterial(index)}
-              >
-                Edit
-              </button>
-              <button
-                type="button"
-                onClick={() => handleDeleteMaterial(index)}
-              >
-                Delete
-              </button>
+              <div className="listBtns">
+                <button
+                  type="button"
+                  className="craftFormBtn step edit"
+                  onClick={() => handleEditMaterial(index)}
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="craftFormBtn step delete"
+                  onClick={() => handleDeleteMaterial(index)}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -355,6 +365,7 @@ const CraftForm = (props) => {
         </div>
         <button
           type="button"
+          className="craftFormBtn"
           onClick={handleAddDirection}
         >
           Add Direction
@@ -363,46 +374,58 @@ const CraftForm = (props) => {
           {directions
             .sort((a, b) => a.step - b.step)
             .map((direction, index) => (
-              <li key={index}>
+              <li
+                key={index}
+                className="formList"
+              >
                 Step {direction.step}: {direction.direction}
-                <button
-                  type="button"
-                  onClick={() => handleEditDirection(index)}
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteDirection(index)}
-                >
-                  Delete
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleMoveDirectionUp(index)}
-                >
-                  Move Up
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleMoveDirectionDown(index)}
-                >
-                  Move Down
-                </button>
+                <div className="listBtns">
+                  <button
+                    type="button"
+                    className="craftFormBtn step move"
+                    onClick={() => handleMoveDirectionUp(index)}
+                  >
+                    <i class="fa-solid fa-up-long"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="craftFormBtn step move"
+                    onClick={() => handleMoveDirectionDown(index)}
+                  >
+                    <i class="fa-solid fa-down-long"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="craftFormBtn step edit"
+                    onClick={() => handleEditDirection(index)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    className="craftFormBtn step delete"
+                    onClick={() => handleDeleteDirection(index)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
         </ol>
-        <button type="submit">
+        <button
+          className="craftFormBtn"
+          type="submit"
+        >
           {selectedCraft ? "Update Craft" : "Submit New Craft"}
         </button>
       </form>
       {selectedCraft ? (
         <Link to={`/crafts/${selectedCraft._id}`}>
-          <button>Cancel</button>
+          <button className="craftFormBtn">Cancel</button>
         </Link>
       ) : (
         <Link to="/crafts">
-          <button>Cancel</button>
+          <button className="craftFormBtn">Cancel</button>
         </Link>
       )}
     </div>

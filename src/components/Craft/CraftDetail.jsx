@@ -157,8 +157,7 @@ const CraftList = (props) => {
               </div>
 
               <button
-                className="add-review-btn"
-                id="add-review-btn"
+                className="btn-craft-details review"
                 onClick={() =>
                   navigate(`/crafts/review`, {
                     state: { craftData: selectedCraft },
@@ -181,18 +180,18 @@ const CraftList = (props) => {
                 </li>
               ))}
             </ul>
-
-            <button
-              id="close-craft-details"
-              onClick={handleBack}
-            >
-              Close
-            </button>
-
             <div>
+              <button
+                className="btn-craft-details"
+                onClick={handleBack}
+              >
+                Close
+              </button>
+
               {selectedCraft.author === user?._id && (
                 <>
                   <button
+                    className="btn-craft-details edit"
                     onClick={() =>
                       navigate(`/crafts/craftform`, {
                         state: { craftData: selectedCraft },
@@ -201,7 +200,10 @@ const CraftList = (props) => {
                   >
                     Edit
                   </button>
-                  <button onClick={() => handleRemoveCraft(selectedCraft._id)}>
+                  <button
+                    className="btn-craft-details delete"
+                    onClick={() => handleRemoveCraft(selectedCraft._id)}
+                  >
                     Delete Craft
                   </button>{" "}
                 </>

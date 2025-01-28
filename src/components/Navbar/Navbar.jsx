@@ -18,7 +18,14 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
-  const { handleViewCraft, craftList, setCraftList, scrollToTop } = props;
+  const {
+    handleViewCraft,
+    craftList,
+    setCraftList,
+    scrollToTop,
+    selectedCraft,
+    setSelectedCraft,
+  } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCraftType, setSelectedCraftType] = useState("allcraft");
 
@@ -34,23 +41,30 @@ const Navbar = (props) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 999,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 4,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 850,
         settings: {
-          slidesToShow: 1.5,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 570,
+        settings: {
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -187,6 +201,8 @@ const Navbar = (props) => {
         handleViewCraft={handleViewCraft}
         craftList={craftList}
         scrollToTop={scrollToTop}
+        selectedCraft={selectedCraft}
+        setSelectedCraft={setSelectedCraft}
       />
     </div>
   );
