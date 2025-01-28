@@ -12,13 +12,13 @@ header {
 
 #logo-container {
   width: 100%;
-  max-width: 200px;
+  max-width: 175px;
   grid-column: 1/2;
 }
 
 .logo {
   max-width: 175px;
-  max-height: 155px;
+  max-height: 150px;
   margin: 10px;
 }
 
