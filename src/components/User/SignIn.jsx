@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as userService from "../../services/userService";
+import "./User.css";
 
 const SignIn = (props) => {
   const { user, setUser } = props;
@@ -31,7 +32,7 @@ const SignIn = (props) => {
   };
 
   return (
-    <div>
+    <div className="backgroundCard">
       <h1>Sign In</h1>
       <form>
         <div>
@@ -55,6 +56,7 @@ const SignIn = (props) => {
           />
         </div>
         <button
+          className="btn btn-primary"
           type="submit"
           onClick={handleSubmit}
         >

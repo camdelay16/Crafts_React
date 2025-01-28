@@ -4,7 +4,9 @@
 #close-craft-details,
 #add-review-btn,
 #post-review,
-#cancel-post {
+#cancel-post,
+.btn,
+.btn-primary {
   border-radius: 10px;
   border: none;
   background-color: aquamarine;
@@ -14,6 +16,7 @@
   margin: 5px;
   width: 90px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .fav-btn {
@@ -25,6 +28,7 @@
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
   margin: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 #add-review-btn {
@@ -39,7 +43,9 @@
 #add-review-btn:hover,
 #post-review:hover,
 #cancel-post:hover,
-.fav-btn:hover {
+.fav-btn:hover,
+.btn:hover,
+.btn-primary:hover {
   background-color: #333;
   color: aquamarine;
 }

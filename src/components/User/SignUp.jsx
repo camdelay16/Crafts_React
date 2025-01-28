@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as userService from "../../services/userService";
+import "./User.css";
 
 const SignUp = (props) => {
   const { user, setUser, setToggle } = props;
@@ -105,7 +106,7 @@ const SignUp = (props) => {
   };
 
   return (
-    <div className="form-container">
+    <div className="backgroundCard">
       <h2>Create An Account</h2>
       <p>{message}</p>
       <form>
@@ -153,9 +154,42 @@ const SignUp = (props) => {
             onChange={handleChange}
           />
         </div>
-        {!formData.valid && <p className="invalid">Passwords must match.</p>}
-        {formData.valid && <p className="valid">Passwords match!</p>}
         {validatePassword(password)}
+        <ul>
+          <li>
+            <small>Needs 8 or more characters.</small>
+          </li>
+
+          <li>
+            <small>Must contain uppercase letter.</small>
+          </li>
+          <li>
+            <small>Must contain lowercase letter.</small>
+          </li>
+          <li>
+            <small>Must contain number.</small>
+          </li>
+          <li>
+            <small>Must contain special character.</small>
+          </li>
+        </ul>
+
+        {!formData.valid && (
+          <p
+            className="invalid"
+            style={{ color: "darkred" }}
+          >
+            Passwords must match.
+          </p>
+        )}
+        {formData.valid && (
+          <p
+            className="valid"
+            style={{ color: "darkgreen" }}
+          >
+            Passwords match!
+          </p>
+        )}
 
         {formData.valid && (
           <button
