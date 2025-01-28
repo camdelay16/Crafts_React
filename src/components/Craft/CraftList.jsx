@@ -72,7 +72,9 @@ const CraftList = (props) => {
             </Link>
           ) : (
             <Link to={`/signin`}>
-              <button className="navLinkButton">Sign In</button>
+              <button className="navLinkButton signin">
+                Sign In to Add Your Own!
+              </button>
             </Link>
           )}
         </div>

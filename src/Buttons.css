@@ -19,6 +19,10 @@
   transition: all 0.3s ease;
 }
 
+.navLinkButton.signin {
+  width: 200px;
+}
+
 .fav-btn {
   border-radius: 10px;
   border: none;
