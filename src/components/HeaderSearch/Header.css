@@ -12,14 +12,19 @@ header {
 
 #logo-container {
   width: 100%;
-  max-width: 175px;
+  max-width: 150px;
   grid-column: 1/2;
+  justify-self: center;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .logo {
-  max-width: 175px;
-  max-height: 150px;
-  margin: 10px;
+  max-width: 150px;
+  max-height: 125px;
+  margin-bottom: 20px;
 }
 
 #title-byline {
