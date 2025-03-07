@@ -51,3 +51,22 @@
 </button>
 </div> */
 }
+
+// FIXME: need to add this to craft form eventually
+
+{
+  /* <div>
+          <label htmlFor="premium-membership">
+            Require Premium Membership:
+          </label>
+          <select
+            id="premium-membershipForm"
+            name="premium"
+            value={formData.premium}
+            onChange={handleChange}
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div> */
+}

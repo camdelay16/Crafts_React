@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import SignIn from "./components/User/SignIn";
 import CraftReviewForm from "./components/Craft/CraftReviewForm";
 import "./Buttons.css";
+import { get, set } from "react-hook-form";
 
 export const AuthedUserContext = createContext(null);
 
@@ -25,8 +26,6 @@ function App() {
   const [selectedCraft, setSelectedCraft] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState(null);
-  const [toggle, setToggle] = useState(false);
-  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const getCrafts = async () => {
@@ -41,40 +40,40 @@ function App() {
       }
     };
     getCrafts();
-  }, [selectedCraft, toggle]);
+  }, [selectedCraft]);
 
   useEffect(() => {
-    const getUserData = async (id) => {
-      try {
-        const userInfo = await userService.getUserData(id);
-        if (userInfo.error) {
-          throw new Error(userInfo.error);
+    const getUserData = async () => {
+      if (user && user._id) {
+        //checks to see if undefined
+        try {
+          const userInfo = await userService.getUserData(user._id);
+          if (userInfo) {
+            //checks to see if not null
+            if (userInfo.error) {
+              console.error("Error fetching user data:", userInfo.error);
+              setUser(null);
+              return;
+            }
+            //check to see if the user is already set.
+            if (user._id !== userInfo._id) {
+              setUser(userInfo);
+            }
+          } else {
+            setUser(null);
+          }
+        } catch (error) {
+          console.error("Error fetching user:", error);
+          setUser(null);
         }
-
-        setUserData(userInfo);
-      } catch (error) {
-        console.log("Error fetching user:", error);
       }
     };
-    user ? getUserData(user._id) : setUserData(null);
-  }, [toggle]);
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        setToggle((prevToggle) => !prevToggle);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [toggle]);
+    getUserData();
+  }, [user]);
 
   const handleViewCraft = (craftItem) => {
     setSelectedCraft(craftItem);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   const searchCrafts = () => {
@@ -115,10 +114,7 @@ function App() {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        <Header
-          setToggle={setToggle}
-          handleSignout={handleSignout}
-        />
+        <Header handleSignout={handleSignout} />
         <Routes>
           {user ? (
             <>
@@ -127,7 +123,6 @@ function App() {
                 element={
                   <Dashboard
                     handleSignout={handleSignout}
-                    userData={userData}
                     handleViewCraft={handleViewCraft}
                   />
                 }
@@ -144,7 +139,6 @@ function App() {
                     searchCraft={searchCraft}
                     setSearchCraft={setSearchCraft}
                     handleViewCraft={handleViewCraft}
-                    setToggle={setToggle}
                   />
                 }
               />
@@ -157,7 +151,6 @@ function App() {
                     setSelectedCraft={setSelectedCraft}
                     craftList={craftList}
                     setCraftList={setCraftList}
-                    setToggle={setToggle}
                   />
                 }
               />
@@ -169,9 +162,8 @@ function App() {
                     setSelectedCraft={setSelectedCraft}
                     setCraftList={setCraftList}
                     craftList={craftList}
-                    userData={userData}
-                    setUserData={setUserData}
                     scrollToTopBack={scrollToTopBack}
+                    setUser={setUser}
                   />
                 }
               />
@@ -214,7 +206,6 @@ function App() {
               <SignUp
                 user={user}
                 setUser={setUser}
-                setToggle={setToggle}
               />
             }
           />

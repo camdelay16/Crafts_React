@@ -5,7 +5,7 @@ import * as userService from "../../services/userService";
 import "./User.css";
 
 const SignUp = (props) => {
-  const { user, setUser, setToggle } = props;
+  const { setUser } = props;
   const navigate = useNavigate();
   const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
@@ -82,11 +82,8 @@ const SignUp = (props) => {
         setMessage("Passwords must match.");
       }
       setFormData({ ...formData, valid: isValid });
-
       const newUserResponse = await userService.signup(formData);
       setUser(newUserResponse.user);
-
-      setToggle((prevToggle) => !prevToggle);
       navigate("/");
       navigate(0);
     } catch (err) {

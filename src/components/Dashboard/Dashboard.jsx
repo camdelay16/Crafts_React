@@ -6,7 +6,7 @@ import * as craftService from "../../services/craftService";
 import { useLocation } from "react-router-dom";
 
 const Dashboard = (props) => {
-  const { handleSignout, userData, handleViewCraft } = props;
+  const { handleSignout, handleViewCraft } = props;
   const [favoritedCrafts, setFavoritedCrafts] = useState([]);
   const user = useContext(AuthedUserContext);
   const location = useLocation();
@@ -27,13 +27,13 @@ const Dashboard = (props) => {
   }, []);
 
   const filteredCrafts = favoritedCrafts.filter((craft) => {
-    let userFavCrafts = { ...userData };
+    let userFavCrafts = { ...user };
     const userFavoritedCrafts = userFavCrafts.userCrafts;
     return userFavoritedCrafts?.includes(craft._id);
   });
 
   const crafts = filteredCrafts.map((craftItem) => (
-    <div key={craftItem._id}>
+    <li key={craftItem._id}>
       <div className="resultBackground">
         <div className="resultImgContainer">
           <img
@@ -61,7 +61,7 @@ const Dashboard = (props) => {
           </Link>
         </div>
       </div>
-    </div>
+    </li>
   ));
 
   return (
@@ -71,7 +71,7 @@ const Dashboard = (props) => {
         <br />
         <h3 className="subtitle">Favorite Crafts</h3>
         <div className="craftContainer">
-          {!userData?.userCrafts.length ? (
+          {!user?.userCrafts?.length ? (
             <h5>Add some crafts to your favorites!</h5>
           ) : (
             <ul className="craftList dashboardList">{crafts}</ul>

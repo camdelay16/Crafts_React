@@ -5,7 +5,7 @@ import { AuthedUserContext } from "../../App";
 import "./Header.css";
 
 const Header = (props) => {
-  const { setToggle, handleSignout } = props;
+  const { handleSignout } = props;
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const user = useContext(AuthedUserContext);
 

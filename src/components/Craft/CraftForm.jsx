@@ -221,20 +221,6 @@ const CraftForm = (props) => {
             <option value="Expert">Expert</option>
           </select>
         </div>
-        {/* <div>
-          <label htmlFor="premium-membership">
-            Require Premium Membership:
-          </label>
-          <select
-            id="premium-membershipForm"
-            name="premium"
-            value={formData.premium}
-            onChange={handleChange}
-          >
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select>
-        </div> */}
         <div id="add-craft-img-container-form">
           <div className="label-container-form">
             <label

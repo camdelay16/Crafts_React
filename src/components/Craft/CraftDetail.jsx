@@ -1,8 +1,8 @@
+import { AuthedUserContext } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as craftService from "../../services/craftService";
 import * as userService from "../../services/userService";
-import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 import "./CraftDetail.css";
 
@@ -12,9 +12,8 @@ const CraftList = (props) => {
     craftList,
     setCraftList,
     setSelectedCraft,
-    userData,
-    setUserData,
     scrollToTopBack,
+    setUser,
   } = props;
   const navigate = useNavigate();
   const user = useContext(AuthedUserContext);
@@ -33,13 +32,13 @@ const CraftList = (props) => {
 
   const handleFavoriteCraft = async () => {
     try {
-      const newUserData = { ...userData };
+      const newUserData = { ...user };
       if (!newUserData.userCrafts) {
         newUserData.userCrafts = [];
       }
       newUserData.userCrafts.push(selectedCraft._id);
       const updatedUser = await userService.update(user._id, newUserData);
-      setUserData(updatedUser);
+      setUser(updatedUser);
       navigate(`/crafts/${selectedCraft._id}`);
     } catch (error) {
       console.error(error);
@@ -47,10 +46,10 @@ const CraftList = (props) => {
   };
 
   const handleUnfavoriteCraft = async () => {
-    const alreadyFavorited = userData.userCrafts?.includes(selectedCraft._id);
+    const alreadyFavorited = user.userCrafts?.includes(selectedCraft._id);
     if (alreadyFavorited) {
       try {
-        let newUserData = { ...userData };
+        let newUserData = { ...user };
         const indexToRemove = newUserData.userCrafts.lastIndexOf(
           selectedCraft._id
         );
@@ -58,7 +57,7 @@ const CraftList = (props) => {
           newUserData.userCrafts.splice(indexToRemove, 1);
         }
         const updatedUser = await userService.update(user._id, newUserData);
-        setUserData(updatedUser);
+        setUser(updatedUser);
         navigate(`/crafts/${selectedCraft._id}`);
       } catch (error) {
         console.error(error);
@@ -90,7 +89,7 @@ const CraftList = (props) => {
             </div>
             <div className="craft-header-details">
               <h3 id="craftName">{selectedCraft.craftName}</h3>
-              {userData.userCrafts?.includes(selectedCraft._id) ? (
+              {user.userCrafts?.includes(selectedCraft._id) ? (
                 <button
                   className="fav-btn"
                   onClick={handleUnfavoriteCraft}

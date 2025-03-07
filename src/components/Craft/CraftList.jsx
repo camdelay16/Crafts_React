@@ -5,16 +5,8 @@ import "./Craft.css";
 import { useLocation } from "react-router-dom";
 
 const CraftList = (props) => {
-  const {
-    craftList,
-    handleViewCraft,
-    filteredCrafts,
-    selectedCraftType,
-    searchCraft,
-    scrollToTop,
-    selectedCraft,
-    setSelectedCraft,
-  } = props;
+  const { handleViewCraft, filteredCrafts, scrollToTop, setSelectedCraft } =
+    props;
   const user = useContext(AuthedUserContext);
   const location = useLocation();
 
@@ -23,7 +15,7 @@ const CraftList = (props) => {
   };
 
   const craftsResults = filteredCrafts.map((craftItem) => (
-    <div
+    <li
       key={craftItem._id}
       className="resultCraft"
     >
@@ -71,7 +63,7 @@ const CraftList = (props) => {
           )}
         </div>
       </div>
-    </div>
+    </li>
   ));
 
   return (
